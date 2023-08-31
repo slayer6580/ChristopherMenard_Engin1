@@ -1,4 +1,7 @@
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
@@ -8,6 +11,11 @@ public class CameraController : MonoBehaviour
     private float m_rotationSpeed = 1.0f;
     [SerializeField]
     private Vector2 m_clampingXRotationValues = Vector2.zero;
+    [SerializeField]
+    private Vector2 m_minMaxDistanceFromTarget;
+    [SerializeField]
+    [Range(0.1f, 1.0f)]
+    private float m_cameraSpeed;
 
     private void Awake()
     {
@@ -80,8 +88,20 @@ public class CameraController : MonoBehaviour
             //TODO: Faire une vérification selon la distance la plus proche ou la plus éloignée
             //Que je souhaite entre ma caméra et mon objet
 
-            //TODO: Lerp plutôt que d'effectuer immédiatement la translation
-            transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
+            //Mathf.Clamp(distance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
+
+            Vector3 vecDiff = (m_objectToLookAt.transform.position - transform.position).normalized;
+            Vector3 newPosition = vecDiff * Input.mouseScrollDelta.y + transform.position;
+
+            float distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
+
+            if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y) 
+            {
+                //transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
+                //transform.position = newPosition;
+                Vector3 smoothPosition = Vector3.Lerp(transform.position, newPosition, m_cameraSpeed);
+                transform.position = smoothPosition;
+            }
         }
     }
 
