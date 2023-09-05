@@ -17,11 +17,6 @@ public class CameraController : MonoBehaviour
     [Range(0.1f, 1.0f)]
     private float m_cameraSpeed;
 
-    private void Awake()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

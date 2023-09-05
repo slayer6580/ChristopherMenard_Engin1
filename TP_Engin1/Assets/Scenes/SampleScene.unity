@@ -336,7 +336,7 @@ MonoBehaviour:
   m_rotationSpeed: 5
   m_clampingXRotationValues: {x: -20, y: 70}
   m_minMaxDistanceFromTarget: {x: 3, y: 10}
-  m_cameraSpeed: 1
+  m_cameraSpeed: 0.499
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +464,8 @@ GameObject:
   - component: {fileID: 462751357}
   - component: {fileID: 462751356}
   - component: {fileID: 462751355}
+  - component: {fileID: 462751359}
+  - component: {fileID: 462751360}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -550,6 +552,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &462751359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462751354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb72cde551860b741b1c33dc93de91db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_camera: {fileID: 0}
+  m_accelerationValue: 10
+  m_maxVelocity: 10
+  m_decelerationSpeed: 0.5
+--- !u!54 &462751360
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462751354}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
