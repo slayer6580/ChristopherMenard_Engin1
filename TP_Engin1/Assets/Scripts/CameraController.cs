@@ -2,6 +2,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,8 +15,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Vector2 m_minMaxDistanceFromTarget;
     [SerializeField]
-    [Range(0.1f, 1.0f)]
+    [Range(0.1f, 20.0f)]
     private float m_cameraSpeed;
+    private Vector3 newPosition = new Vector3();
+    private float distance = 0;
+
 
     // Update is called once per frame
     void Update()
@@ -78,6 +82,7 @@ public class CameraController : MonoBehaviour
 
     private void UpdateCameraScroll()
     {
+
         if (Input.mouseScrollDelta.y != 0)
         {
             //TODO: Faire une vérification selon la distance la plus proche ou la plus éloignée
@@ -85,24 +90,18 @@ public class CameraController : MonoBehaviour
 
             //Mathf.Clamp(distance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
 
-            Vector3 vecDiff = (m_objectToLookAt.transform.position - transform.position).normalized;
-            Vector3 newPosition = vecDiff * Input.mouseScrollDelta.y + transform.position;
-
-            float distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
-
-            if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y) 
-            {
-                //transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
-                //transform.position = newPosition;
-                Vector3 smoothPosition = Vector3.Lerp(transform.position, newPosition, m_cameraSpeed);
-                transform.position = smoothPosition;
-            }
+            Vector3 direction = (m_objectToLookAt.transform.position - transform.position).normalized;
+            newPosition = direction * Input.mouseScrollDelta.y + transform.position;
+            distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
         }
-    }
 
-    private void TestCameraObstruction() 
-    {
-
+        if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y)
+        {
+            //transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
+            //transform.position = newPosition;
+            Vector3 smoothPosition = Vector3.Lerp(transform.position, newPosition, m_cameraSpeed * Time.deltaTime);
+            transform.position = smoothPosition;
+        }
     }
 
     private float ClampAngle(float angle)

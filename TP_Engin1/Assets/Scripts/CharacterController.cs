@@ -34,7 +34,7 @@ public class CharacterController : MonoBehaviour
         //Lorsqu'aucun input est mis, décélérer le personnage rapidement
     }
 
-    void Move() 
+    void Move()
     {
         Vector3 vectorOnFloor = new Vector3();
         bool isKeyPressed = false;
