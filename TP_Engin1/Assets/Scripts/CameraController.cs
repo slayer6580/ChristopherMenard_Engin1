@@ -16,17 +16,34 @@ public class CameraController : MonoBehaviour
     private Vector2 m_minMaxDistanceFromTarget;
     [SerializeField]
     [Range(0.1f, 20.0f)]
+
+    private float m_distanceToReach;
+    private float m_lastDistance;
+
     private float m_cameraSpeed;
     private Vector3 newPosition = new Vector3();
     private float distance = 0;
 
+    private void Start()
+    {
+        distance = Vector3.Distance(m_objectToLookAt.transform.position, transform.position);
+    }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHorizontalMovements();
         UpdateVerticalMovements();
-        UpdateCameraScroll();
+        //UpdateCameraScroll();
+        Test();
+    }
+
+    private void Test()
+    {
+        Vector3 vecteurDiff = transform.position - m_objectToLookAt.position;
+        float distance = vecteurDiff.magnitude;
+        Vector3 direction = vecteurDiff.normalized;
+        //Debug.Log("Calcul:" + direction * distance);
     }
 
     private void FixedUpdate()
@@ -111,5 +128,10 @@ public class CameraController : MonoBehaviour
             angle -= 360;
         }
         return angle;
+    }
+
+    private void LerpDistance() 
+    {
+
     }
 }
