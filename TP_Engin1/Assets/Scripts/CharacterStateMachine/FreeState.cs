@@ -47,20 +47,22 @@ public class FreeState : CharacterState
             isKeyPressed = true;
         }
         vectorOnFloor.Normalize();
-        m_stateMachine.RB.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
+        m_stateMachine.rigibody.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
 
-        if (m_stateMachine.RB.velocity.magnitude > m_stateMachine.MaxVelocity)
+        if (m_stateMachine.rigibody.velocity.magnitude > m_stateMachine.MaxVelocity)
         {
-            m_stateMachine.RB.velocity = m_stateMachine.RB.velocity.normalized;
-            m_stateMachine.RB.velocity *= m_stateMachine.MaxVelocity;
+            m_stateMachine.rigibody.velocity = m_stateMachine.rigibody.velocity.normalized;
+            m_stateMachine.rigibody.velocity *= m_stateMachine.MaxVelocity;
         }
 
         if (isKeyPressed == false)
         {
-            m_stateMachine.RB.velocity = m_stateMachine.RB.velocity * m_stateMachine.AccelerationValue * Time.deltaTime;
+            m_stateMachine.rigibody.velocity = m_stateMachine.rigibody.velocity * m_stateMachine.AccelerationValue * Time.deltaTime;
         }
         //Debug.Log(m_stateMachine.RB.velocity.magnitude);
-        
+
+        float fowardComponent = Vector3.Dot(m_stateMachine.rigibody.velocity, vectorOnFloor);
+        m_stateMachine.UpdateAnimatorValues(new Vector2(0, fowardComponent));
     }
 
     public override void OnExit()

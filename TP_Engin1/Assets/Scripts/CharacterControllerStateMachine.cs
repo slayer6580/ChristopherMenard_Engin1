@@ -4,7 +4,11 @@ using UnityEngine;
 public class CharacterControllerStateMachine : MonoBehaviour
 {
     public Camera Camera { get; private set; }
-    public Rigidbody RB { get; private set; }
+
+    [field:SerializeField]
+    public Rigidbody rigibody { get; private set; }
+
+    public Animator Animator { get;  set; }
 
     [field: SerializeField]
     public float AccelerationValue { get; private set; }
@@ -29,7 +33,7 @@ public class CharacterControllerStateMachine : MonoBehaviour
     void Start()
     {
         Camera = Camera.main;
-        RB = GetComponent<Rigidbody>();
+        //RB = GetComponent<Rigidbody>();
 
         foreach (CharacterState state in m_possibleStates)
         {
@@ -80,5 +84,16 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public bool IsInContactWithFloor() 
     {
         return m_floorTrigger.IsOnFloor;
+    }
+
+    public void UpdateAnimatorValues(Vector2 movementVecValue) 
+    {
+        //Aller chercher ma vitesse actuelle
+        //Communiquer directement avec mon animator
+        movementVecValue = new Vector2(movementVecValue.x, movementVecValue.y / MaxVelocity);
+
+        Animator.SetFloat("MoveX", movementVecValue.x);
+        Animator.SetFloat("MoveY", movementVecValue.y);
+        
     }
 }
