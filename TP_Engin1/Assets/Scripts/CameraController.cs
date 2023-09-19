@@ -98,7 +98,7 @@ public class CameraController : MonoBehaviour
         transform.RotateAround(m_objectToLookAt.position, transform.right, currentAngleY);
     }
 
-    
+
     private void UpdateCameraScroll()
     {
 
@@ -143,17 +143,17 @@ public class CameraController : MonoBehaviour
         }
         return angle;
     }
-    
 
-    private float GetDistanceFromTarget() 
+
+    private float GetDistanceFromTarget()
     {
         Vector3 vecteurDiff = transform.position - m_objectToLookAt.position;
         float distance = vecteurDiff.magnitude;
         return distance;
     }
 
-    
-    private void LerpCameraPosition() 
+
+    private void LerpCameraPosition()
     {
         Vector3 direction = (transform.position - m_objectToLookAt.position).normalized;
 

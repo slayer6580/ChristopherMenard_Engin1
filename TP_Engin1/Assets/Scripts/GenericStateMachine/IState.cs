@@ -6,6 +6,6 @@ public interface IState
     public void OnFixedUpdate();
     public void OnExit();
 
-    public bool CanEnter ();
+    public bool CanEnter (CharacterState currentState);
     public bool CanExit ();
 }

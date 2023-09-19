@@ -223,13 +223,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1850548905}
     m_Modifications:
-    - target: {fileID: 533781515092595283, guid: fccea71f5d32ed549a3a7319be4ee932,
-        type: 3}
-      propertyPath: m_text
-      value: 'Angle
-
-        15'
-      objectReference: {fileID: 0}
     - target: {fileID: 3899514427911785519, guid: fccea71f5d32ed549a3a7319be4ee932,
         type: 3}
       propertyPath: m_Camera

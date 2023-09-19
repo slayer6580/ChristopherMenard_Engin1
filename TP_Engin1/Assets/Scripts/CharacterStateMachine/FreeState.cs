@@ -56,7 +56,7 @@ public class FreeState : CharacterState
 
         if (isKeyPressed == false)
         {
-            float x = m_stateMachine.Rigibody.velocity.x * m_stateMachine.AccelerationValue * Time.deltaTime;
+            float x = m_stateMachine.Rigibody.velocity.x * m_stateMachine.AccelerationValue * Time.deltaTime;//mettre un scalaire(float)
             float y = m_stateMachine.Rigibody.velocity.y;
             float z = m_stateMachine.Rigibody.velocity.z * m_stateMachine.AccelerationValue * Time.deltaTime;
 
@@ -64,7 +64,6 @@ public class FreeState : CharacterState
 
             m_stateMachine.Rigibody.velocity = newVelocity;
         }
-        //Debug.Log(m_stateMachine.RB.velocity.magnitude);
 
         float fowardComponent = Vector3.Dot(m_stateMachine.Rigibody.velocity, vectorOnFloor);
         //m_stateMachine.UpdateAnimatorValues(new Vector2(0, fowardComponent));
@@ -76,10 +75,20 @@ public class FreeState : CharacterState
 
     }
 
-    public override bool CanEnter()
+    public override bool CanEnter(CharacterState currentState)
     {
-        //Je ne peux entrer dans le FreeState que si je touche le sol
-        return m_stateMachine.IsInContactWithFloor();
+       //This must be run in Update absolutely
+
+       var castedState = currentState as JumpState;
+       if (castedState != null) 
+       { 
+            //si je suis ici, c'est que je suis présentement dans le jump state et teste
+            //si je peux entrer dans FreeState
+
+            //Je ne peux entrer dans le FreeState que si je touche le sol
+            return m_stateMachine.IsInContactWithFloor();
+       }
+       return false;
     }
 
     public override bool CanExit()
