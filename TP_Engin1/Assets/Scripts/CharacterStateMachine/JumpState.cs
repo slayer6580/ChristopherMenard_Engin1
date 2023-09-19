@@ -4,7 +4,7 @@ public class JumpState : CharacterState
 {
     private const float STATE_EXIT_TIMER = 0.2f;
     private float m_currentStateTimer = 0.0f;
-    private bool m_CanEnter => m_stateMachine.IsInContactWithFloor() && Input.GetKeyDown(KeyCode.Space); //equivalent avec =>
+    //private bool m_CanEnter => m_stateMachine.IsInContactWithFloor() && Input.GetKeyDown(KeyCode.Space); //equivalent avec =>
     public override void OnEnter()
     {
         Debug.Log("Entering State: JumpState");
@@ -89,7 +89,7 @@ public class JumpState : CharacterState
             //si je peux entrer dans JumpState
 
             //Je ne peux entrer dans le FreeState que si je touche le sol
-            return m_CanEnter;
+            return m_stateMachine.IsInContactWithFloor() && Input.GetKeyDown(KeyCode.Space);
         }
         return false;
     }

@@ -79,8 +79,8 @@ public class FreeState : CharacterState
     {
        //This must be run in Update absolutely
 
-       var castedState = currentState as JumpState;
-       if (castedState != null) 
+       var jumpState = currentState as JumpState;
+       if (jumpState != null) 
        { 
             //si je suis ici, c'est que je suis présentement dans le jump state et teste
             //si je peux entrer dans FreeState
@@ -88,7 +88,13 @@ public class FreeState : CharacterState
             //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
        }
-       return false;
+
+        var hitState = currentState as HitState;
+        if (hitState != null)
+        {
+
+        }
+        return false;
     }
 
     public override bool CanExit()
