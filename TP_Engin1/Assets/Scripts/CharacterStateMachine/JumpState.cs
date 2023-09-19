@@ -9,18 +9,64 @@ public class JumpState : CharacterState
         Debug.Log("Entering State: JumpState");
 
         //Effectuer le saut
-        m_stateMachine.rigibody.AddForce(Vector3.up * m_stateMachine.JumpIntensity, ForceMode.Acceleration);
+        m_stateMachine.Rigibody.AddForce(Vector3.up * m_stateMachine.JumpIntensity, ForceMode.Acceleration);
         m_currentStateTimer = STATE_EXIT_TIMER;
+        m_stateMachine.Animator.SetBool("TouchGround", false);
+        m_stateMachine.Animator.SetTrigger("Jump");
     }
 
     public override void OnExit()
     {
         Debug.Log("Exiting State: JumpState");
+        m_stateMachine.Animator.SetBool("TouchGround", true);
     }
 
     public override void OnFixedUpdate()
     {
         Debug.Log("FixedUpdating State: JumpState");
+        Vector3 vectorOnFloor = new Vector3();
+        bool isKeyPressed = false;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            vectorOnFloor += Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.forward, Vector3.up);
+            isKeyPressed = true;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            vectorOnFloor += Vector3.ProjectOnPlane(-m_stateMachine.Camera.transform.forward, Vector3.up);
+            isKeyPressed = true;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            vectorOnFloor += Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.right, Vector3.up);
+            isKeyPressed = true;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            vectorOnFloor += Vector3.ProjectOnPlane(-m_stateMachine.Camera.transform.right, Vector3.up);
+            isKeyPressed = true;
+        }
+        vectorOnFloor.Normalize();
+
+        if (isKeyPressed) 
+        {
+            m_stateMachine.Rigibody.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
+        }
+        
+        if (m_stateMachine.Rigibody.velocity.magnitude > m_stateMachine.MaxVelocityInAir)
+        {
+            float x = m_stateMachine.Rigibody.velocity.normalized.x * m_stateMachine.MaxVelocityInAir;
+            float y = m_stateMachine.Rigibody.velocity.y;
+            float z = m_stateMachine.Rigibody.velocity.normalized.z * m_stateMachine.MaxVelocityInAir;
+            
+            Vector3 newVelocity = new Vector3(x, y, z);
+
+            //m_stateMachine.Rigibody.velocity = m_stateMachine.Rigibody.velocity.normalized;
+            //m_stateMachine.Rigibody.velocity *= m_stateMachine.MaxVelocity;
+            m_stateMachine.Rigibody.velocity = newVelocity;
+        }
+        
     }
 
     public override void OnUpdate()

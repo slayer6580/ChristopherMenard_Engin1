@@ -6,14 +6,22 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public Camera Camera { get; private set; }
 
     [field:SerializeField]
-    public Rigidbody rigibody { get; private set; }
+    public Rigidbody Rigibody { get; private set; }
 
-    public Animator Animator { get;  set; }
+    [field: SerializeField]
+    public Animator Animator { get; set; }
 
     [field: SerializeField]
     public float AccelerationValue { get; private set; }
+
+    [field: SerializeField]
+    public float InAirAccelerationValue { get; private set; }
+
     [field: SerializeField]
     public float MaxVelocity { get; private set; }
+
+    [field: SerializeField]
+    public float MaxVelocityInAir { get; private set; }
 
     [field: SerializeField]
     public float JumpIntensity { get; private set; }
@@ -94,6 +102,5 @@ public class CharacterControllerStateMachine : MonoBehaviour
 
         Animator.SetFloat("MoveX", movementVecValue.x);
         Animator.SetFloat("MoveY", movementVecValue.y);
-        
     }
 }

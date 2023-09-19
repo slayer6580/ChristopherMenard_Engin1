@@ -22,7 +22,6 @@ public class FreeState : CharacterState
 
         //Debug.Log(m_stateMachine.RB.velocity.magnitude);
 
-
         Vector3 vectorOnFloor = new Vector3();
         bool isKeyPressed = false;
 
@@ -47,22 +46,29 @@ public class FreeState : CharacterState
             isKeyPressed = true;
         }
         vectorOnFloor.Normalize();
-        m_stateMachine.rigibody.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
+        m_stateMachine.Rigibody.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
 
-        if (m_stateMachine.rigibody.velocity.magnitude > m_stateMachine.MaxVelocity)
+        if (m_stateMachine.Rigibody.velocity.magnitude > m_stateMachine.MaxVelocity)
         {
-            m_stateMachine.rigibody.velocity = m_stateMachine.rigibody.velocity.normalized;
-            m_stateMachine.rigibody.velocity *= m_stateMachine.MaxVelocity;
+            m_stateMachine.Rigibody.velocity = m_stateMachine.Rigibody.velocity.normalized;
+            m_stateMachine.Rigibody.velocity *= m_stateMachine.MaxVelocity;
         }
 
         if (isKeyPressed == false)
         {
-            m_stateMachine.rigibody.velocity = m_stateMachine.rigibody.velocity * m_stateMachine.AccelerationValue * Time.deltaTime;
+            float x = m_stateMachine.Rigibody.velocity.x * m_stateMachine.AccelerationValue * Time.deltaTime;
+            float y = m_stateMachine.Rigibody.velocity.y;
+            float z = m_stateMachine.Rigibody.velocity.z * m_stateMachine.AccelerationValue * Time.deltaTime;
+
+            Vector3 newVelocity = new Vector3(x, y, z);
+
+            m_stateMachine.Rigibody.velocity = newVelocity;
         }
         //Debug.Log(m_stateMachine.RB.velocity.magnitude);
 
-        float fowardComponent = Vector3.Dot(m_stateMachine.rigibody.velocity, vectorOnFloor);
-        m_stateMachine.UpdateAnimatorValues(new Vector2(0, fowardComponent));
+        float fowardComponent = Vector3.Dot(m_stateMachine.Rigibody.velocity, vectorOnFloor);
+        //m_stateMachine.UpdateAnimatorValues(new Vector2(0, fowardComponent));
+        m_stateMachine.UpdateAnimatorValues(new Vector2(vectorOnFloor.x, vectorOnFloor.z));
     }
 
     public override void OnExit()

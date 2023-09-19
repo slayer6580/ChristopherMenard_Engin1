@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -11,22 +12,22 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float m_rotationSpeed = 1.0f;
     [SerializeField]
+    private float m_scrollMultiplier = 1.0f;
+    [SerializeField]
     private Vector2 m_clampingXRotationValues = Vector2.zero;
     [SerializeField]
     private Vector2 m_minMaxDistanceFromTarget;
     [SerializeField]
     [Range(0.1f, 20.0f)]
 
-    private float m_distanceToReach;
-    private float m_lastDistance;
-
     private float m_cameraSpeed;
-    private Vector3 newPosition = new Vector3();
-    private float distance = 0;
+
+    private Vector3 m_targetPosition;
+    private float m_targetDistance;
 
     private void Start()
     {
-        distance = Vector3.Distance(m_objectToLookAt.transform.position, transform.position);
+        m_targetDistance = Vector3.Distance(m_objectToLookAt.transform.position, transform.position);
     }
 
     // Update is called once per frame
@@ -34,8 +35,8 @@ public class CameraController : MonoBehaviour
     {
         UpdateHorizontalMovements();
         UpdateVerticalMovements();
-        //UpdateCameraScroll();
-        Test();
+        UpdateCameraScroll();
+        //LerpCameraPosition();
     }
 
     private void Test()
@@ -97,6 +98,7 @@ public class CameraController : MonoBehaviour
         transform.RotateAround(m_objectToLookAt.position, transform.right, currentAngleY);
     }
 
+    
     private void UpdateCameraScroll()
     {
 
@@ -108,18 +110,30 @@ public class CameraController : MonoBehaviour
             //Mathf.Clamp(distance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
 
             Vector3 direction = (m_objectToLookAt.transform.position - transform.position).normalized;
-            newPosition = direction * Input.mouseScrollDelta.y + transform.position;
-            distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
+            Vector3 newPosition = direction * Input.mouseScrollDelta.y * m_scrollMultiplier + transform.position;
+            float distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
+
+            if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y)
+            {
+                transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
+                //transform.position = Vector3.MoveTowards(transform.position, newPosition, m_cameraSpeed * Time.deltaTime);
+            }
         }
 
-        if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y)
-        {
-            //transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
-            //transform.position = newPosition;
-            Vector3 smoothPosition = Vector3.Lerp(transform.position, newPosition, m_cameraSpeed * Time.deltaTime);
-            transform.position = smoothPosition;
-        }
     }
+
+    /*
+    private void UpdateCameraScroll()
+    {
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            float newDistance = m_targetDistance + Input.mouseScrollDelta.y;
+            m_targetDistance = newDistance;
+            m_targetDistance = Mathf.Clamp(m_targetDistance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
+        }
+        Debug.Log(m_targetDistance);
+    }
+    */
 
     private float ClampAngle(float angle)
     {
@@ -129,9 +143,28 @@ public class CameraController : MonoBehaviour
         }
         return angle;
     }
+    
 
-    private void LerpDistance() 
+    private float GetDistanceFromTarget() 
     {
+        Vector3 vecteurDiff = transform.position - m_objectToLookAt.position;
+        float distance = vecteurDiff.magnitude;
+        return distance;
+    }
 
+    
+    private void LerpCameraPosition() 
+    {
+        Vector3 direction = (transform.position - m_objectToLookAt.position).normalized;
+
+        Vector3 targetPosition = direction * m_targetDistance;
+
+        Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, m_cameraSpeed * Time.deltaTime);
+
+        transform.position = newPosition;
+
+        //Debug.Log(targetPosition);
+        Debug.DrawRay(m_objectToLookAt.position, targetPosition, Color.red);
+        //Debug.Log(transform.position);
     }
 }
