@@ -31,6 +31,8 @@ public class CharacterControllerStateMachine : MonoBehaviour
     private CharacterState m_currentState;
     private List<CharacterState> m_possibleStates;
 
+    private bool m_isStun = false;
+
     private void Awake()
     {
         m_possibleStates = new List<CharacterState>();
@@ -103,5 +105,18 @@ public class CharacterControllerStateMachine : MonoBehaviour
 
         Animator.SetFloat("MoveX", movementVecValue.x);
         Animator.SetFloat("MoveY", movementVecValue.y);
+    }
+    public void GetStunned()
+    {
+        m_isStun = true;
+    }
+    public void GetUnstunned()
+    {
+        m_isStun = true;
+    }
+
+    public bool GetIsStun() 
+    {
+        return m_isStun;
     }
 }

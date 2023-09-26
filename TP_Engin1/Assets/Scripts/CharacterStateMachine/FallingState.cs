@@ -21,7 +21,7 @@ public class FallingState : CharacterState
     public override void OnExit()
     {
         Debug.Log("Exiting State: FallingState");
-        m_stateMachine.Animator.SetBool("TouchGround", true);
+        //m_stateMachine.Animator.SetBool("TouchGround", true);
     }
 
     public override bool CanEnter(CharacterState currentState)

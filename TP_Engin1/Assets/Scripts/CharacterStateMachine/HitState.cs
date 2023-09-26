@@ -29,7 +29,6 @@ public class HitState : CharacterState
         var freeState = currentState as FreeState;
         if (freeState != null)
         {
-            Debug.Log("Test");
             //si je suis ici, c'est que je suis présentement dans le Free state et teste
             //si je peux entrer dans JumpState
 
