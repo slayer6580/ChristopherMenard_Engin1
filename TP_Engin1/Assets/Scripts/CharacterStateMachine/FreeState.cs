@@ -4,12 +4,12 @@ public class FreeState : CharacterState
 {
     public override void OnEnter()
     {
-
+        Debug.Log("Entering State: FreeState");
     }
 
     public override void OnUpdate()
     {
-
+        Debug.Log("In State: FreeState");
     }
 
     public override void OnFixedUpdate()
@@ -72,7 +72,7 @@ public class FreeState : CharacterState
 
     public override void OnExit()
     {
-
+        Debug.Log("Existing State: FreeState");
     }
 
     public override bool CanEnter(CharacterState currentState)
@@ -88,6 +88,16 @@ public class FreeState : CharacterState
             //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
        }
+
+        var fallingState = currentState as FallingState;
+        if (fallingState != null)
+        {
+            //si je suis ici, c'est que je suis présentement dans le falling state et teste
+            //si je peux entrer dans FreeState
+
+            //Je ne peux entrer dans le FreeState que si je touche le sol
+            return m_stateMachine.IsInContactWithFloor();
+        }
 
         var hitState = currentState as HitState;
         if (hitState != null)

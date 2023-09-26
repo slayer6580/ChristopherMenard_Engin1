@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class JumpState : CharacterState
 {
-    private const float STATE_EXIT_TIMER = 0.2f;
+    private const float STATE_EXIT_TIMER = 1.0f;
     private float m_currentStateTimer = 0.0f;
     //private bool m_CanEnter => m_stateMachine.IsInContactWithFloor() && Input.GetKeyDown(KeyCode.Space); //equivalent avec =>
     public override void OnEnter()
@@ -84,7 +84,6 @@ public class JumpState : CharacterState
         var freeState = currentState as FreeState;
         if (freeState != null)
         {
-            Debug.Log("Test");
             //si je suis ici, c'est que je suis présentement dans le Free state et teste
             //si je peux entrer dans JumpState
 

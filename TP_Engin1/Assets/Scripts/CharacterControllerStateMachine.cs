@@ -36,6 +36,7 @@ public class CharacterControllerStateMachine : MonoBehaviour
         m_possibleStates = new List<CharacterState>();
         m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new JumpState());
+        m_possibleStates.Add(new FallingState());
     }
 
     void Start()
