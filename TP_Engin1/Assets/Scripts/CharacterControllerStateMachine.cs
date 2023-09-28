@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterControllerStateMachine : MonoBehaviour
@@ -7,6 +8,9 @@ public class CharacterControllerStateMachine : MonoBehaviour
 
     [field:SerializeField]
     public Rigidbody Rigibody { get; private set; }
+
+    [field:SerializeField]
+    public Collider Collider { get; private set; }
 
     [field: SerializeField]
     public Animator Animator { get; set; }
@@ -32,6 +36,10 @@ public class CharacterControllerStateMachine : MonoBehaviour
     private List<CharacterState> m_possibleStates;
 
     private bool m_isStun = false;
+    [SerializeField]
+    private float m_animationSpeed; 
+    private float m_xValue;
+    private float m_yValue;
 
     private void Awake()
     {
@@ -39,12 +47,13 @@ public class CharacterControllerStateMachine : MonoBehaviour
         m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new FallingState());
+        m_possibleStates.Add(new StunState());
+        m_possibleStates.Add(new RecoverState());
     }
 
     void Start()
     {
         Camera = Camera.main;
-        //RB = GetComponent<Rigidbody>();
 
         foreach (CharacterState state in m_possibleStates)
         {
@@ -102,9 +111,11 @@ public class CharacterControllerStateMachine : MonoBehaviour
         //Aller chercher ma vitesse actuelle
         //Communiquer directement avec mon animator
         movementVecValue = new Vector2(movementVecValue.x, movementVecValue.y / MaxVelocity);
+        m_xValue = Mathf.Lerp(m_xValue, movementVecValue.x, Time.deltaTime * m_animationSpeed);
+        m_yValue = Mathf.Lerp(m_yValue, movementVecValue.y, Time.deltaTime * m_animationSpeed);
 
-        Animator.SetFloat("MoveX", movementVecValue.x);
-        Animator.SetFloat("MoveY", movementVecValue.y);
+        Animator.SetFloat("MoveX", m_xValue);
+        Animator.SetFloat("MoveY", m_yValue);
     }
     public void GetStunned()
     {
@@ -112,7 +123,16 @@ public class CharacterControllerStateMachine : MonoBehaviour
     }
     public void GetUnstunned()
     {
-        m_isStun = true;
+        m_isStun = false;
+    }
+
+    public void OnTriggerEnter(Collider other) 
+    {
+        Debug.Log(other.transform.gameObject.name);
+        if (other.transform.tag == "Stun") 
+        {
+            GetStunned();
+        }
     }
 
     public bool GetIsStun() 

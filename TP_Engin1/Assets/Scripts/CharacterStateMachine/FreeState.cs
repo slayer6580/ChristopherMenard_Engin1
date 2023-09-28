@@ -4,13 +4,13 @@ public class FreeState : CharacterState
 {
     public override void OnEnter()
     {
-        Debug.Log("Entering State: FreeState");
+        //Debug.Log("Entering State: FreeState");
         m_stateMachine.Animator.SetBool("TouchGround", true);
     }
 
     public override void OnUpdate()
     {
-        Debug.Log("In State: FreeState");
+        //Debug.Log("In State: FreeState");
     }
 
     public override void OnFixedUpdate()
@@ -73,7 +73,7 @@ public class FreeState : CharacterState
 
     public override void OnExit()
     {
-        Debug.Log("Existing State: FreeState");
+        //Debug.Log("Existing State: FreeState");
     }
 
     public override bool CanEnter(CharacterState currentState)
@@ -100,11 +100,11 @@ public class FreeState : CharacterState
             return m_stateMachine.IsInContactWithFloor();
         }
 
-        var stunState = currentState as StunState;
-        if (stunState != null)
+        var recoverState = currentState as RecoverState;
+        if (recoverState != null)
         {
             //si je suis ici, c'est que je suis présentement dans le stunState et teste
-            //si je peux entrer dans FreeState
+            //si je peux entrer dans RecoverState
 
             //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();

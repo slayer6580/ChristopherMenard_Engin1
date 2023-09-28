@@ -11,10 +11,7 @@ public class StunState : CharacterState
 
     public override void OnUpdate() 
     {
-        if (m_stateMachine.IsInContactWithFloor()) 
-        {
-            m_stateMachine.Animator.SetBool("TouchGround", true);
-        }
+
     }
     public override void OnFixedUpdate() 
     {
