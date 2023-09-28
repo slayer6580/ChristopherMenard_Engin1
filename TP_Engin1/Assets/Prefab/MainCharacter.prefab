@@ -3394,8 +3394,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3214731077447215214}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -4.72}
+  m_LocalRotation: {x: 0.072704405, y: 0.31883493, z: -0.02454011, w: 0.94469905}
+  m_LocalPosition: {x: -1.4649003, y: 1.148164, z: -1.7052753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3434,7 +3434,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 82.397316
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3516,7 +3516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d7de7a67cb8664dabb948e2cd4c3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_objectToLookAt: {fileID: 955221813863091198}
+  m_objectToLookAt: {fileID: 4109904844888013197}
   m_rotationSpeed: 5
   m_scrollMultiplier: 2
   m_clampingXRotationValues: {x: -20, y: 70}
@@ -12997,6 +12997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rigibody>k__BackingField: {fileID: 219152414730002321}
+  <Collider>k__BackingField: {fileID: 2800325544873769506}
   <Animator>k__BackingField: {fileID: 2401078133928597248}
   <AccelerationValue>k__BackingField: 10
   <InAirAccelerationValue>k__BackingField: 15
@@ -13004,6 +13005,7 @@ MonoBehaviour:
   <MaxVelocityInAir>k__BackingField: 4
   <JumpIntensity>k__BackingField: 500
   m_floorTrigger: {fileID: 6050568878971817062}
+  m_animationSpeed: 5
 --- !u!1 &8925978223616014691
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,6 +36,8 @@ public class CharacterControllerStateMachine : MonoBehaviour
     private List<CharacterState> m_possibleStates;
 
     private bool m_isStun = false;
+    private bool m_isAttacking = false;
+
     [SerializeField]
     private float m_animationSpeed; 
     private float m_xValue;
@@ -49,6 +51,7 @@ public class CharacterControllerStateMachine : MonoBehaviour
         m_possibleStates.Add(new FallingState());
         m_possibleStates.Add(new StunState());
         m_possibleStates.Add(new RecoverState());
+        m_possibleStates.Add(new AttackState());
     }
 
     void Start()
@@ -124,6 +127,21 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public void GetUnstunned()
     {
         m_isStun = false;
+    }
+
+    public void Attack() 
+    {
+        m_isAttacking = true;
+    }
+
+    public void StopAttack() 
+    {
+        m_isAttacking = false;
+    }
+
+    public bool GetIsAttacking()
+    {
+        return m_isAttacking;
     }
 
     public void OnTriggerEnter(Collider other) 

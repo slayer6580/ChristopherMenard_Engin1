@@ -11,18 +11,14 @@ public class FreeState : CharacterState
     public override void OnUpdate()
     {
         //Debug.Log("In State: FreeState");
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_stateMachine.Attack();
+        }
     }
 
     public override void OnFixedUpdate()
     {
-
-        //TODO 31 AOÛT:
-        //Appliquer les déplacements relatifs à la caméra dans les 3 autres directions
-        //Avoir des vitesses de déplacements maximales différentes vers les côtés et vers l'arrière
-        //Lorsqu'aucun input est mis, décélérer le personnage rapidement
-
-        //Debug.Log(m_stateMachine.RB.velocity.magnitude);
-
         Vector3 vectorOnFloor = new Vector3();
         bool isKeyPressed = false;
 
@@ -108,6 +104,14 @@ public class FreeState : CharacterState
 
             //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
+        }
+
+        var attackState = currentState as AttackState;
+        if (attackState != null)
+        {
+            //si je suis ici, c'est que je suis présentement dans le attackState et teste
+            //si je peux entrer dans RecoverState
+            return !m_stateMachine.GetIsAttacking();
         }
 
         return false;

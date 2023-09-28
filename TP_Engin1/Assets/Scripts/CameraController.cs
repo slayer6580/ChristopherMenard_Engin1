@@ -1,9 +1,4 @@
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -36,7 +31,7 @@ public class CameraController : MonoBehaviour
         UpdateHorizontalMovements();
         UpdateVerticalMovements();
         UpdateCameraScroll();
-        //LerpCameraPosition();
+        LerpCameraPosition();
     }
 
     private void Test()
@@ -98,7 +93,7 @@ public class CameraController : MonoBehaviour
         transform.RotateAround(m_objectToLookAt.position, transform.right, currentAngleY);
     }
 
-
+    /*
     private void UpdateCameraScroll()
     {
 
@@ -121,8 +116,9 @@ public class CameraController : MonoBehaviour
         }
 
     }
+    */
 
-    /*
+    
     private void UpdateCameraScroll()
     {
         if (Input.mouseScrollDelta.y != 0)
@@ -133,7 +129,7 @@ public class CameraController : MonoBehaviour
         }
         Debug.Log(m_targetDistance);
     }
-    */
+
 
     private float ClampAngle(float angle)
     {
@@ -155,16 +151,17 @@ public class CameraController : MonoBehaviour
 
     private void LerpCameraPosition()
     {
+        /*
         Vector3 direction = (transform.position - m_objectToLookAt.position).normalized;
 
         Vector3 targetPosition = direction * m_targetDistance;
-
-        Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, m_cameraSpeed * Time.deltaTime);
+        */
+        Vector3 newPosition = Vector3.Lerp(transform.position, transform.forward * (-m_targetDistance), m_cameraSpeed * Time.deltaTime);
 
         transform.position = newPosition;
 
         //Debug.Log(targetPosition);
-        Debug.DrawRay(m_objectToLookAt.position, targetPosition, Color.red);
+        Debug.DrawRay(m_objectToLookAt.position, transform.forward * (-m_targetDistance), Color.red);
         //Debug.Log(transform.position);
     }
 }

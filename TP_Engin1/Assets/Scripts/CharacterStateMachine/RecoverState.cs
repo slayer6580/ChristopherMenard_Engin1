@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RecoverState : CharacterState
 {
-    private const float STATE_EXIT_TIMER = 0.5f;
+    private const float STATE_EXIT_TIMER = 1.0f;
     private float m_currentStateTimer = 0.0f;
     public override void OnEnter()
     {
