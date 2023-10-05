@@ -3521,7 +3521,7 @@ MonoBehaviour:
   m_scrollMultiplier: 2
   m_clampingXRotationValues: {x: -20, y: 70}
   m_minMaxDistanceFromTarget: {x: 2, y: 20}
-  m_cameraSpeed: 20
+  m_cameraSpeed: 1
 --- !u!1 &3350822716884943091
 GameObject:
   m_ObjectHideFlags: 0

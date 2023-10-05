@@ -120,11 +120,11 @@ public class CharacterControllerStateMachine : MonoBehaviour
         Animator.SetFloat("MoveX", m_xValue);
         Animator.SetFloat("MoveY", m_yValue);
     }
-    public void GetStunned()
+    public void StunCharacter()
     {
         m_isStun = true;
     }
-    public void GetUnstunned()
+    public void UnstunCharacter()
     {
         m_isStun = false;
     }
@@ -149,7 +149,7 @@ public class CharacterControllerStateMachine : MonoBehaviour
         Debug.Log(other.transform.gameObject.name);
         if (other.transform.tag == "Stun") 
         {
-            GetStunned();
+            StunCharacter();
         }
     }
 

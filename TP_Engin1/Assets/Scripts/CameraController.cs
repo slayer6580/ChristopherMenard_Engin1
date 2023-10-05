@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
@@ -6,8 +7,6 @@ public class CameraController : MonoBehaviour
     private Transform m_objectToLookAt;
     [SerializeField]
     private float m_rotationSpeed = 1.0f;
-    [SerializeField]
-    private float m_scrollMultiplier = 1.0f;
     [SerializeField]
     private Vector2 m_clampingXRotationValues = Vector2.zero;
     [SerializeField]
@@ -18,14 +17,16 @@ public class CameraController : MonoBehaviour
     private float m_cameraSpeed;
 
     private Vector3 m_targetPosition;
-    private float m_targetDistance;
+    public float m_targetDistance;
+    private float m_actualDistance;
+    private bool m_isObstrcutingCamera = false;
 
     private void Start()
     {
-        m_targetDistance = Vector3.Distance(m_objectToLookAt.transform.position, transform.position);
+        m_targetDistance = GetDistanceFromTarget();
+        m_actualDistance = GetDistanceFromTarget();
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateHorizontalMovements();
@@ -60,14 +61,18 @@ public class CameraController : MonoBehaviour
         if (Physics.Raycast(m_objectToLookAt.position, vecteurDiff, out hit, distance, layerMask))
         {
             //J'ai un objet entre mon focus et ma caméra
+            m_isObstrcutingCamera = true;
             Debug.DrawRay(m_objectToLookAt.position, vecteurDiff.normalized * hit.distance, Color.yellow);
             transform.SetPositionAndRotation(hit.point, transform.rotation);
+            m_actualDistance = GetDistanceFromTarget();
         }
         else
         {
             //J'en ai pas
+            m_isObstrcutingCamera = false;
             Debug.DrawRay(m_objectToLookAt.position, vecteurDiff, Color.white);
         }
+        Debug.Log(m_isObstrcutingCamera);
     }
 
     private void UpdateHorizontalMovements()
@@ -92,44 +97,27 @@ public class CameraController : MonoBehaviour
         }
         transform.RotateAround(m_objectToLookAt.position, transform.right, currentAngleY);
     }
-
-    /*
-    private void UpdateCameraScroll()
-    {
-
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            //TODO: Faire une vérification selon la distance la plus proche ou la plus éloignée
-            //Que je souhaite entre ma caméra et mon objet
-
-            //Mathf.Clamp(distance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
-
-            Vector3 direction = (m_objectToLookAt.transform.position - transform.position).normalized;
-            Vector3 newPosition = direction * Input.mouseScrollDelta.y * m_scrollMultiplier + transform.position;
-            float distance = Vector3.Distance(m_objectToLookAt.transform.position, newPosition);
-
-            if (distance > m_minMaxDistanceFromTarget.x && distance < m_minMaxDistanceFromTarget.y)
-            {
-                transform.Translate(Vector3.forward * Input.mouseScrollDelta.y, Space.Self);
-                //transform.position = Vector3.MoveTowards(transform.position, newPosition, m_cameraSpeed * Time.deltaTime);
-            }
-        }
-
-    }
-    */
-
     
     private void UpdateCameraScroll()
     {
         if (Input.mouseScrollDelta.y != 0)
         {
-            float newDistance = m_targetDistance + Input.mouseScrollDelta.y;
+            float newDistance = m_targetDistance - Input.mouseScrollDelta.y;
             m_targetDistance = newDistance;
             m_targetDistance = Mathf.Clamp(m_targetDistance, m_minMaxDistanceFromTarget.x, m_minMaxDistanceFromTarget.y);
         }
-        Debug.Log(m_targetDistance);
     }
 
+    private void LerpCameraPosition()
+    {
+        if (m_isObstrcutingCamera == false) 
+        {
+            m_actualDistance = Mathf.Lerp(m_actualDistance, m_targetDistance, m_cameraSpeed * Time.deltaTime);
+            float direction = m_actualDistance / Mathf.Abs(m_actualDistance);
+            transform.Translate(Vector3.forward * (m_actualDistance - m_targetDistance) * Time.deltaTime, Space.Self);
+        }
+        
+    }
 
     private float ClampAngle(float angle)
     {
@@ -146,22 +134,5 @@ public class CameraController : MonoBehaviour
         Vector3 vecteurDiff = transform.position - m_objectToLookAt.position;
         float distance = vecteurDiff.magnitude;
         return distance;
-    }
-
-
-    private void LerpCameraPosition()
-    {
-        /*
-        Vector3 direction = (transform.position - m_objectToLookAt.position).normalized;
-
-        Vector3 targetPosition = direction * m_targetDistance;
-        */
-        Vector3 newPosition = Vector3.Lerp(transform.position, transform.forward * (-m_targetDistance), m_cameraSpeed * Time.deltaTime);
-
-        transform.position = newPosition;
-
-        //Debug.Log(targetPosition);
-        Debug.DrawRay(m_objectToLookAt.position, transform.forward * (-m_targetDistance), Color.red);
-        //Debug.Log(transform.position);
     }
 }

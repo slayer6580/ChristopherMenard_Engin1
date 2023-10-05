@@ -864,6 +864,7 @@ MonoBehaviour:
   m_clampingXRotationValues: {x: -20, y: 70}
   m_minMaxDistanceFromTarget: {x: 3, y: 40}
   m_cameraSpeed: 10
+  m_targetDistance: 0
 --- !u!114 &997764032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1639,7 +1640,7 @@ PrefabInstance:
     - target: {fileID: 1655501730063471581, guid: 9151fb9c0866bde47bfe7e2050ac317e,
         type: 3}
       propertyPath: m_cameraSpeed
-      value: 9.8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1655501730063471581, guid: 9151fb9c0866bde47bfe7e2050ac317e,
         type: 3}

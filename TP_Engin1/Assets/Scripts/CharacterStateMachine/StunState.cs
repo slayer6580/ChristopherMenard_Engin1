@@ -25,10 +25,13 @@ public class StunState : CharacterState
         var fallingState = currentState as FallingState;
         if (fallingState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le FallingState et teste
-            //si je peux entrer dans Stun
-
             return m_stateMachine.GetIsStun() && !m_stateMachine.IsInContactWithFloor();
+        }
+
+        var freeState = currentState as FreeState;
+        if (freeState != null)
+        {
+            return m_stateMachine.GetIsStun();
         }
         return false;
     }

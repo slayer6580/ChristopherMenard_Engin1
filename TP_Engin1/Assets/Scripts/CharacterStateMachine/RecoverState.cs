@@ -12,7 +12,7 @@ public class RecoverState : CharacterState
 
     public override void OnExit()
     {
-        m_stateMachine.GetUnstunned();
+        m_stateMachine.UnstunCharacter();
     }
 
     public override void OnFixedUpdate()
@@ -30,10 +30,6 @@ public class RecoverState : CharacterState
         var stunState = currentState as StunState;
         if (stunState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le stunState et teste
-            //si je peux entrer dans RecoverState
-
-            //Je ne peux entrer dans le RecoverState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
         }
         return false;

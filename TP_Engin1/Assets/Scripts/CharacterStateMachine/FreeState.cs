@@ -15,7 +15,20 @@ public class FreeState : CharacterState
         {
             m_stateMachine.Attack();
         }
+
+        if (Input.GetKey(KeyCode.H))
+        {
+            Debug.Log("GOT STUNNED");
+            m_stateMachine.StunCharacter();
+        }
     }
+
+    /*
+     * Par exemple, si vous allez à un angle nord-nord-ouest 
+     * (3/4 du déplacement 	vers l'avant, 1/4 vers la gauche), et que votre vitesse maximale de 
+     * déplacement avant est 20 et vers les côtés 5, votre vitesse maximale calculée 
+     * à ce moment devrait être de ((3/4) * 20 + (1/4) * 5) == 15 + 1.25 == 16.25
+     */
 
     public override void OnFixedUpdate()
     {
@@ -69,7 +82,7 @@ public class FreeState : CharacterState
 
     public override void OnExit()
     {
-        //Debug.Log("Existing State: FreeState");
+        
     }
 
     public override bool CanEnter(CharacterState currentState)
@@ -79,38 +92,24 @@ public class FreeState : CharacterState
        var jumpState = currentState as JumpState;
        if (jumpState != null) 
        { 
-            //si je suis ici, c'est que je suis présentement dans le jump state et teste
-            //si je peux entrer dans FreeState
-
-            //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
        }
 
         var fallingState = currentState as FallingState;
         if (fallingState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le falling state et teste
-            //si je peux entrer dans FreeState
-
-            //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
         }
 
         var recoverState = currentState as RecoverState;
         if (recoverState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le stunState et teste
-            //si je peux entrer dans RecoverState
-
-            //Je ne peux entrer dans le FreeState que si je touche le sol
             return m_stateMachine.IsInContactWithFloor();
         }
 
         var attackState = currentState as AttackState;
         if (attackState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le attackState et teste
-            //si je peux entrer dans RecoverState
             return !m_stateMachine.GetIsAttacking();
         }
 

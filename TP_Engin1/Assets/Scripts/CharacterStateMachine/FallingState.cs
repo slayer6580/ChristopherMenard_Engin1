@@ -15,7 +15,7 @@ public class FallingState : CharacterState
         if (Input.GetKey(KeyCode.H))
         {
             Debug.Log("GOT STUNNED");
-            m_stateMachine.GetStunned();
+            m_stateMachine.StunCharacter();
         }
     }
     public override void OnFixedUpdate()
@@ -65,8 +65,7 @@ public class FallingState : CharacterState
     }
     public override void OnExit()
     {
-        Debug.Log("Exiting State: FallingState");
-        //m_stateMachine.Animator.SetBool("TouchGround", true);
+
     }
 
     public override bool CanEnter(CharacterState currentState)
@@ -74,16 +73,12 @@ public class FallingState : CharacterState
         var freeState = currentState as FreeState;
         if (freeState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le FreeState et teste
-            //si je peux entrer dans FallingState
             return !m_stateMachine.IsInContactWithFloor();
         }
 
         var jumpState = currentState as JumpState;
         if (jumpState != null)
         {
-            //si je suis ici, c'est que je suis présentement dans le JumpState et teste
-            //si je peux entrer dans FallingState
             return !m_stateMachine.IsInContactWithFloor();
         }
         return false;
