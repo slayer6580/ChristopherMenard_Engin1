@@ -32,9 +32,9 @@ public class CameraController : MonoBehaviour
         UpdateHorizontalMovements();
         UpdateVerticalMovements();
         UpdateCameraScroll();
-        LerpCameraPosition();
+        
     }
-
+    /*
     private void Test()
     {
         Vector3 vecteurDiff = transform.position - m_objectToLookAt.position;
@@ -42,10 +42,12 @@ public class CameraController : MonoBehaviour
         Vector3 direction = vecteurDiff.normalized;
         //Debug.Log("Calcul:" + direction * distance);
     }
+    */
 
     private void FixedUpdate()
     {
         MoveCameraInFrontOfObstructionFU();
+        LerpCameraPosition();
     }
 
     private void MoveCameraInFrontOfObstructionFU()

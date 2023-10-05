@@ -412,6 +412,12 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!4 &451572627 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+    type: 3}
+  m_PrefabInstance: {fileID: 767546701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &462751354
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +765,134 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 641009105}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &767546701
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1850548905}
+    m_Modifications:
+    - target: {fileID: 469209624637861515, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156064410351131093, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593230726889912772, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632836506782765523, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_text
+      value: Wall Camera Colission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632836506782765523, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632836506782765523, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423144395688908856, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Name
+      value: WallCameraCollision
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423144395688908856, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556799362220271814, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1685575685}
+    - target: {fileID: 4589781015875957425, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589781015875957425, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589781015875957425, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.527053
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.7451121
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690201557031760880, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157078318801707424, guid: f4528c0ec2fcee64cbcf1128cb5d6f79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f4528c0ec2fcee64cbcf1128cb5d6f79, type: 3}
 --- !u!114 &785761815 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6050568878971817062, guid: 9151fb9c0866bde47bfe7e2050ac317e,
@@ -860,7 +994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectToLookAt: {fileID: 995462461}
   m_rotationSpeed: 5
-  m_scrollMultiplier: 1
   m_clampingXRotationValues: {x: -20, y: 70}
   m_minMaxDistanceFromTarget: {x: 3, y: 40}
   m_cameraSpeed: 10
@@ -1356,6 +1489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1578114602}
+  - {fileID: 451572627}
   - {fileID: 1792202106}
   - {fileID: 1589375761}
   - {fileID: 1841193661}
