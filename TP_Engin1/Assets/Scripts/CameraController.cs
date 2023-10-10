@@ -74,7 +74,6 @@ public class CameraController : MonoBehaviour
             m_isObstrcutingCamera = false;
             Debug.DrawRay(m_objectToLookAt.position, vecteurDiff, Color.white);
         }
-        Debug.Log(m_isObstrcutingCamera);
     }
 
     private void UpdateHorizontalMovements()

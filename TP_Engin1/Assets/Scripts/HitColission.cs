@@ -4,21 +4,38 @@ using UnityEngine;
 
 public class HitColission : MonoBehaviour
 {
-    public enum EType
+    public enum EEntity
     {
-        Player,
+        MainCharacter,
         Enemy
     }
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private EEntity m_canBeHitBy;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        string hitObject = other.transform.gameObject.tag;
+
+        switch (hitObject)
+        {
+            case "MainCharacter":
+                GetHit(EEntity.MainCharacter);
+                break;
+            case "Enemy":
+                GetHit(EEntity.Enemy);
+                break;
+            default:
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private bool GetHit(EEntity hittable) 
     {
-        
+        if (hittable == m_canBeHitBy) 
+        {
+            return true;
+        }
+        return false;
     }
 }

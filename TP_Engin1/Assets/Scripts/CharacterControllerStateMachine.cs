@@ -31,6 +31,9 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public float JumpIntensity { get; private set; }
 
     [field: SerializeField]
+    public GameObject HitBox { get; private set; }
+
+    [field: SerializeField]
     public CharacterFloorTrigger m_floorTrigger;
     private CharacterState m_currentState;
     private List<CharacterState> m_possibleStates;
@@ -57,7 +60,6 @@ public class CharacterControllerStateMachine : MonoBehaviour
     void Start()
     {
         Camera = Camera.main;
-
         foreach (CharacterState state in m_possibleStates)
         {
             state.OnStart(this);
@@ -132,11 +134,13 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public void Attack() 
     {
         m_isAttacking = true;
+        HitBox.SetActive(true);
     }
 
     public void StopAttack() 
     {
         m_isAttacking = false;
+        HitBox.SetActive(false);
     }
 
     public bool GetIsAttacking()
