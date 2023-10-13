@@ -68,7 +68,7 @@ public class FallingState : CharacterState
 
     }
 
-    public override bool CanEnter(CharacterState currentState)
+    public override bool CanEnter(IState currentState)
     {
         var freeState = currentState as FreeState;
         if (freeState != null)

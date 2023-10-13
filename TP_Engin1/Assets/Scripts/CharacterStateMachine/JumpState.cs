@@ -29,7 +29,7 @@ public class JumpState : CharacterState
         m_currentStateTimer -= Time.deltaTime;
     }
 
-    public override bool CanEnter(CharacterState currentState)
+    public override bool CanEnter(IState currentState)
     {
         var freeState = currentState as FreeState;
         if (freeState != null)

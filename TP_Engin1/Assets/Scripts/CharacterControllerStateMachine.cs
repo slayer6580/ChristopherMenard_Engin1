@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class CharacterControllerStateMachine : MonoBehaviour
+public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
 {
     public Camera Camera { get; private set; }
 
-    [field:SerializeField]
+    [field: SerializeField]
     public Rigidbody Rigibody { get; private set; }
 
-    [field:SerializeField]
+    [field: SerializeField]
     public Collider Collider { get; private set; }
 
     [field: SerializeField]
@@ -35,18 +34,21 @@ public class CharacterControllerStateMachine : MonoBehaviour
 
     [field: SerializeField]
     public CharacterFloorTrigger m_floorTrigger;
-    private CharacterState m_currentState;
-    private List<CharacterState> m_possibleStates;
 
     private bool m_isStun = false;
     private bool m_isAttacking = false;
 
     [SerializeField]
-    private float m_animationSpeed; 
+    private float m_animationSpeed;
     private float m_xValue;
     private float m_yValue;
 
     private void Awake()
+    {
+        CreatePossibleStates();
+    }
+
+    protected override void CreatePossibleStates() 
     {
         m_possibleStates = new List<CharacterState>();
         m_possibleStates.Add(new FreeState());
@@ -57,53 +59,29 @@ public class CharacterControllerStateMachine : MonoBehaviour
         m_possibleStates.Add(new AttackState());
     }
 
-    void Start()
+    protected override void Start()
     {
-        Camera = Camera.main;
         foreach (CharacterState state in m_possibleStates)
         {
             state.OnStart(this);
         }
         m_currentState = m_possibleStates[0];
         m_currentState.OnEnter();
+
+        Camera = Camera.main;
+        Camera = Camera.main;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        m_currentState.OnUpdate();
+        base.Update();
         TryStateTransition();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        m_currentState.OnFixedUpdate();
-    }
-
-    private void TryStateTransition()
-    {
-        if (!m_currentState.CanExit())
-        {
-            return;
-        }
-
-        //Je peux quitter le state actuel
-        foreach (var state in m_possibleStates)
-        {
-            if (m_currentState == state)
-            {
-                continue;
-            }
-
-            if (state.CanEnter(m_currentState))
-            {
-                //Quiter le state actuel
-                m_currentState.OnExit();
-                m_currentState = state;
-                //Rentrer dans le state state
-                m_currentState.OnEnter();
-            }
-        }
+        base.FixedUpdate();
     }
 
     public bool IsInContactWithFloor() 
@@ -134,13 +112,11 @@ public class CharacterControllerStateMachine : MonoBehaviour
     public void Attack() 
     {
         m_isAttacking = true;
-        HitBox.SetActive(true);
     }
 
     public void StopAttack() 
     {
         m_isAttacking = false;
-        HitBox.SetActive(false);
     }
 
     public bool GetIsAttacking()

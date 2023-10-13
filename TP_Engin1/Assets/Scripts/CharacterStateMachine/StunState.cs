@@ -20,7 +20,7 @@ public class StunState : CharacterState
 
     }
 
-    public override bool CanEnter(CharacterState currentState) 
+    public override bool CanEnter(IState currentState) 
     {
         var fallingState = currentState as FallingState;
         if (fallingState != null)

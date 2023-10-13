@@ -25,7 +25,7 @@ public class RecoverState : CharacterState
         m_currentStateTimer -= Time.deltaTime;
     }
 
-    public override bool CanEnter(CharacterState currentState)
+    public override bool CanEnter(IState currentState)
     {
         var stunState = currentState as StunState;
         if (stunState != null)

@@ -1,37 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayState : MonoBehaviour
+public class GameplayState : IState
 {
+    protected Camera m_camera;
+    public GameplayState(Camera camera) 
+    {
+        m_camera = camera;
+    }
+    public bool CanEnter(IState currentState)
+    {
+        return Input.GetKeyDown(KeyCode.G);
+    }
+
+    public bool CanExit()
+    {
+        return Input.GetKeyDown(KeyCode.G);
+    }
+
+    public void OnEnter()
+    {
+        Debug.Log("On Enter GameplayState");
+        m_camera.enabled = true;
+    }
+
+    public void OnExit()
+    {
+        Debug.Log("On Exit GameplayState");
+        m_camera.enabled = false;
+    }
+
+    public void OnFixedUpdate()
+    {
+    }
+
     public void OnStart()
     {
-
     }
 
-    public virtual void OnEnter()
+    public void OnUpdate()
     {
-    }
-
-    public virtual void OnExit()
-    {
-    }
-
-    public virtual void OnFixedUpdate()
-    {
-    }
-
-    public virtual void OnUpdate()
-    {
-    }
-
-    public virtual bool CanEnter()
-    {
-        return true;
-    }
-
-    public virtual bool CanExit()
-    {
-        return true;
     }
 }

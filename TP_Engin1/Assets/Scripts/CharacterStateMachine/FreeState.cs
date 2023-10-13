@@ -23,13 +23,6 @@ public class FreeState : CharacterState
         }
     }
 
-    /*
-     * Par exemple, si vous allez à un angle nord-nord-ouest 
-     * (3/4 du déplacement 	vers l'avant, 1/4 vers la gauche), et que votre vitesse maximale de 
-     * déplacement avant est 20 et vers les côtés 5, votre vitesse maximale calculée 
-     * à ce moment devrait être de ((3/4) * 20 + (1/4) * 5) == 15 + 1.25 == 16.25
-     */
-
     public override void OnFixedUpdate()
     {
         Vector3 vectorOnFloor = new Vector3();
@@ -85,7 +78,7 @@ public class FreeState : CharacterState
         
     }
 
-    public override bool CanEnter(CharacterState currentState)
+    public override bool CanEnter(IState currentState)
     {
        //This must be run in Update absolutely
 

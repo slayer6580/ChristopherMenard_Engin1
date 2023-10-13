@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AttackState : CharacterState
 {
@@ -24,10 +25,10 @@ public class AttackState : CharacterState
     }
     public override void OnExit()
     {
-
+        m_stateMachine.HitBox.SetActive(false);
     }
 
-    public override bool CanEnter(CharacterState currentState)
+    public override bool CanEnter(IState currentState)
     {
         var freeState = currentState as FreeState;
         if (freeState != null)

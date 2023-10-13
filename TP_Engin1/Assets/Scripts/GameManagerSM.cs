@@ -1,25 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class GameManagerSM : MonoBehaviour
+public class GameManagerSM : BaseStateMachine<IState>
 {
-    private static GameManagerSM _Instance;
-
-    public static GameManagerSM GetInstance()
+    [SerializeField]
+    protected Camera m_gameplayCamera;
+    [SerializeField]
+    protected Camera m_cinematicCamera;
+    protected override void CreatePossibleStates()
     {
-        if (_Instance == null)
-        {
-            _Instance = new GameManagerSM();
-        }
-        return _Instance;
-    }
-
-    public GameManagerSM()
-    {
-        if (_Instance)
-        {
-            Destroy(this);
-            return;
-        }
+        m_possibleStates = new List<IState>();
+        m_possibleStates.Add(new GameplayState(m_gameplayCamera));
+        m_possibleStates.Add(new CinematicState(m_cinematicCamera));
     }
 
 }
