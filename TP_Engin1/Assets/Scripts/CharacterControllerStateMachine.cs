@@ -124,6 +124,11 @@ public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
         return m_isAttacking;
     }
 
+    public void SetHitBoxState(bool state) 
+    {
+        HitBox.SetActive(state);
+    }
+
     public void OnTriggerEnter(Collider other) 
     {
         Debug.Log(other.transform.gameObject.name);
