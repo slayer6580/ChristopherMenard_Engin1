@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public enum EAgentType
 {
@@ -28,6 +29,7 @@ public class HitBox : MonoBehaviour
 
         if (CanHitOther(otherHitBox)) 
         {
+            VFXManager._Instance.InstantiateVFX(EVFX_Type.Hit, other.ClosestPoint(transform.position));
             GetHit(otherHitBox);
         };
     }

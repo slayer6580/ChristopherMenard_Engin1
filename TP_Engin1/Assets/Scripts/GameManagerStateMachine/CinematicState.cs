@@ -12,7 +12,7 @@ public class CinematicState : IState
 
     public bool CanEnter(IState currentState)
     {
-        throw new System.NotImplementedException();
+        return Input.GetKeyDown(KeyCode.G);
     }
 
     public bool CanExit()
@@ -23,11 +23,13 @@ public class CinematicState : IState
     public void OnEnter()
     {
         Debug.Log("On Enter CinematicState");
+        m_camera.enabled = true;
     }
 
     public void OnExit()
     {
         Debug.Log("On Exit CinematicState");
+        m_camera.enabled = false;
     }
 
     public void OnFixedUpdate()
