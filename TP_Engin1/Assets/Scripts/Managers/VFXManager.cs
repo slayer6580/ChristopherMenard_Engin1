@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
-    public static VFXManager _Instance 
-    {
-        get { return _Instance;}
-        protected set { _Instance = value; }
-    }
+    public static VFXManager _Instance { get; protected set; }
 
     [SerializeField]
     private GameObject m_HitPS;

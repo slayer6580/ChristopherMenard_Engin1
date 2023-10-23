@@ -8,6 +8,7 @@ public class RecoverState : CharacterState
     {
         m_currentStateTimer = STATE_EXIT_TIMER;
         m_stateMachine.Animator.SetBool("TouchGround", true);
+        AudioManager._Instance.PlayAudioClip(EAudio_Type.Land, m_stateMachine.transform.position);
     }
 
     public override void OnExit()

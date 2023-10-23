@@ -65,7 +65,7 @@ public class FallingState : CharacterState
     }
     public override void OnExit()
     {
-
+        AudioManager._Instance.PlayAudioClip(EAudio_Type.Land, m_stateMachine.transform.position);
     }
 
     public override bool CanEnter(IState currentState)

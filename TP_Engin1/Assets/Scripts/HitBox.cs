@@ -30,6 +30,7 @@ public class HitBox : MonoBehaviour
         if (CanHitOther(otherHitBox)) 
         {
             VFXManager._Instance.InstantiateVFX(EVFX_Type.Hit, other.ClosestPoint(transform.position));
+            AudioManager._Instance.PlayAudioClip(EAudio_Type.Hit, other.ClosestPoint(transform.position));
             GetHit(otherHitBox);
         };
     }

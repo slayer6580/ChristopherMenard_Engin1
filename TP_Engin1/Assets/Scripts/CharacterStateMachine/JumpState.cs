@@ -12,6 +12,7 @@ public class JumpState : CharacterState
         m_currentStateTimer = STATE_EXIT_TIMER;
         m_stateMachine.Animator.SetBool("TouchGround", false);
         m_stateMachine.Animator.SetTrigger("Jump");
+        AudioManager._Instance.PlayAudioClip(EAudio_Type.Jump, m_stateMachine.transform.position);
     }
 
     public override void OnExit()
