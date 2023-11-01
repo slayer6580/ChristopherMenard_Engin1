@@ -7,6 +7,12 @@ public class VFXManager : MonoBehaviour
     [SerializeField]
     private GameObject m_HitPS;
 
+    [SerializeField]
+    private AnimationCurve m_TimeCurve;
+
+    [SerializeField]
+    private CameraShake m_cameraShake;
+
     private void Awake()
     {
         if (_Instance == null)
@@ -25,6 +31,7 @@ public class VFXManager : MonoBehaviour
         {
             case EVFX_Type.Hit:
                 Instantiate(m_HitPS, pos, Quaternion.identity, transform);
+                m_cameraShake.ShakeCamera();
                 break;
             default:
                 break;

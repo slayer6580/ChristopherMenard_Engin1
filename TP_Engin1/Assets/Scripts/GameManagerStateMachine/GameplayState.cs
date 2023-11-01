@@ -1,9 +1,10 @@
+using Cinemachine;
 using UnityEngine;
 
 public class GameplayState : IState
 {
-    protected Camera m_camera;
-    public GameplayState(Camera camera) 
+    protected CinemachineVirtualCamera m_camera;
+    public GameplayState(CinemachineVirtualCamera camera) 
     {
         m_camera = camera;
     }

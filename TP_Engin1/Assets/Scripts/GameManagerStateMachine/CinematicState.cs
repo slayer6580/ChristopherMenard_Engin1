@@ -1,11 +1,12 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CinematicState : IState
 {
-    protected Camera m_camera;
-    public CinematicState(Camera camera)
+    protected CinemachineVirtualCamera m_camera;
+    public CinematicState(CinemachineVirtualCamera camera)
     {
         m_camera = camera;
     }

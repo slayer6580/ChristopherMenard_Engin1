@@ -1,9 +1,10 @@
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
 {
-    public Camera Camera { get; private set; }
+    public CinemachineVirtualCamera Camera;
 
     [field: SerializeField]
     public Rigidbody Rigibody { get; private set; }
@@ -43,6 +44,8 @@ public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
     private float m_xValue;
     private float m_yValue;
 
+    private bool m_canControl = false;
+
     private void Awake()
     {
         CreatePossibleStates();
@@ -68,12 +71,15 @@ public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
         m_currentState = m_possibleStates[0];
         m_currentState.OnEnter();
 
-        Camera = Camera.main;
-        Camera = Camera.main;
+        //Camera = Camera.main;
     }
 
     protected override void Update()
     {
+        if (m_canControl == false)
+        {
+            return;
+        }
         base.Update();
         TryStateTransition();
     }
@@ -81,6 +87,10 @@ public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
     // Update is called once per frame
     protected override void FixedUpdate()
     {
+        if (m_canControl == false)
+        {
+            return;
+        }
         base.FixedUpdate();
     }
 
@@ -141,5 +151,10 @@ public class CharacterControllerStateMachine : BaseStateMachine<CharacterState>
     public bool GetIsStun() 
     {
         return m_isStun;
+    }
+
+    public void CanControlCharacter() 
+    {
+        m_canControl = true;
     }
 }
