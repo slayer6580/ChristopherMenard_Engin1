@@ -3097,7 +3097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2106954287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3274,8 +3274,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114630814}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000020724886, y: -0.9995771, z: 0.02908072, w: 0.000000017215987}
-  m_LocalPosition: {x: -2.5459998, y: 0.5066297, z: 9.111368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.546, y: 0.2126935, z: 1.0837256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3400,7 +3400,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -5917,7 +5917,7 @@ PrefabInstance:
     - target: {fileID: 7827155636296872037, guid: 082a315f4a612a14b8fcca1c082342b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
